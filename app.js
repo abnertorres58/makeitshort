@@ -30,15 +30,23 @@ app.post('/api/makeitshort', function(req, res){
     var originalUrl = req.body.url;
     var url = ''; // resulting short url
 
-    // create the url
-    var newUrl = Url({
-        original_url: originalUrl
-    });
+  // check if url already exists in database
+  Url.findOne({original_url: originalUrl}, function (err, doc){
+    if (doc){
+      url = config.webhost + encoder.encode(doc._id);
 
-    // save it
-    newUrl.save(function(err) {
+      // return existent
+      res.send({'url': url, 'hits': doc.hits});
+    } else {
+      // create a new one
+      var newUrl = Url({
+        original_url: originalUrl
+      });
+
+      // save the new link
+      newUrl.save(function(err) {
         if (err){
-            console.log(err);
+          console.log(err);
         }
 
         // encode the url
@@ -46,7 +54,11 @@ app.post('/api/makeitshort', function(req, res){
 
         // return the url to show it
         res.send({'url': url});
-    });
+      });
+    }
+
+  });
+
 });
 
 app.get('/:encoded_id', function(req, res){

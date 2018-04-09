@@ -10,6 +10,7 @@ $('.main-btn').on('click', function(){
         success: function(data){
             $('.result').html(data.url);
             $('.result').attr('href', data.url);
+            $('#link').show();
         }
     });
 

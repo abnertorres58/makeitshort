@@ -3,6 +3,15 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var config = require('./config/config');
+var encoder = require('./encoder.js');
+
+// models
+var urlModule = require('./models/url');
+var Url = urlModule.Url;
+
+mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -18,7 +27,26 @@ app.post('/api/stats', function(req, res) {
 });
 
 app.post('/api/makeitshort', function(req, res){
-    // make a short url, save, etc
+    var originalUrl = req.body.url;
+    var url = ''; // resulting short url
+
+    // create the url
+    var newUrl = Url({
+        original_url: originalUrl
+    });
+
+    // save it
+    newUrl.save(function(err) {
+        if (err){
+            console.log(err);
+        }
+
+        // encode the url
+        url = config.webhost + encoder.encode(newUrl._id);
+
+        // return the url to show it
+        res.send({'url': url});
+    });
 });
 
 app.get('/:encoded_id', function(req, res){

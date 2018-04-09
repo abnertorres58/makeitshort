@@ -1,4 +1,4 @@
-#INSTALLATION
+# INSTALLATION
 - Create a mongo databse in your host machine called short_urls using Robo 3T or mongo cli
 - use short_urls
 - db.url_stats.insert({ _id: 'url_stats', url_count: 1 })
@@ -8,11 +8,11 @@
 
 That will give you mongo persistence when the container gets destroyed.
 
-#RUN
+# RUN
 
 docker-compose up
 
-#TESTING
+# TESTING
 
 To list containers:
 docker container ls

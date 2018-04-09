@@ -1,0 +1,20 @@
+{
+  "name": "makeitshort",
+  "version": "1.0.0",
+  "description": "make it short",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Freud Abner",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "mongoose": "4.2.9"
+  },
+  "devDependencies": {
+    "mocha": "^5.0.5"
+  }
+}

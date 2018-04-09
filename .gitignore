@@ -1,0 +1,13 @@
+# Webstorm
+.idea
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# node
+node_modules
+
+# npm
+.npm

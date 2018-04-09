@@ -62,7 +62,19 @@ app.post('/api/makeitshort', function(req, res){
 });
 
 app.get('/:encoded_id', function(req, res){
-    // redirect
+
+  var encoded_id = req.params.encoded_id;
+  var id = encoder.decode(encoded_id);
+
+  // check if url already exists in database
+  Url.findOne({_id: id}, function (err, doc){
+    if (doc) {
+      // todo check for http
+      res.redirect(doc.original_url);
+    } else {
+      res.redirect(config.webhost);
+    }
+  });
 });
 
 var server = app.listen(3000, function () {

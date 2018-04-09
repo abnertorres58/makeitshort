@@ -1,0 +1,17 @@
+version: "2"
+services:
+  app2:
+    container_name: app2
+    restart: always
+    build: .
+    ports:
+      - "3000:3000"
+    links:
+      - mongo2
+  mongo2:
+    container_name: mongo2
+    image: mongo
+    volumes:
+      - /Users/freudromero/mongo-data:/data/db
+    ports:
+      - "27017:27017"

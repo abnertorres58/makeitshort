@@ -8,6 +8,7 @@ var encoder = require('./encoder.js');
 
 // models
 var urlModule = require('./models/url');
+var stats = urlModule.stats;
 var Url = urlModule.Url;
 
 mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
@@ -22,8 +23,15 @@ app.get('/', function(req, res){
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
+// return general sequence - last generated id = total urls shortened
 app.post('/api/stats', function(req, res) {
-    // return stats
+  stats.findOne({_id: 'url_stats'}, function (err, doc) {
+    if (doc) {
+      res.send({ url_count: doc.url_count });
+    } else {
+      res.send('N/A');
+    }
+  });
 });
 
 app.post('/api/makeitshort', function(req, res){
@@ -53,7 +61,7 @@ app.post('/api/makeitshort', function(req, res){
         url = config.webhost + encoder.encode(newUrl._id);
 
         // return the url to show it
-        res.send({'url': url});
+        res.send({'url': url, 'hits': 0});
       });
     }
 

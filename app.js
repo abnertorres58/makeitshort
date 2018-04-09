@@ -91,8 +91,12 @@ app.get('/:encoded_id', function(req, res){
   });
 });
 
-var server = app.listen(3000, function () {
-    console.log('Server listening on port 3000 - http://localhost:3000/');
-});
+// check that is not being used from a mocha test
+// because the mocha test starts its own app in another port
+if (!module.parent) {
+  var server = app.listen(3000, function () {
+      console.log('Server listening on port 3000 - http://localhost:3000/');
+  });
+}
 
 module.exports = app;

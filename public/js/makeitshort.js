@@ -27,11 +27,16 @@ $('#admin-mode-btn').on('click', function(){
         type: 'POST',
         dataType: 'JSON',
         success: function(data){
-            showStats('Total url shortened ' + data.url_count + '!');
+            showStats('Total urls shortened ' + data.url_count + '!');
         }
     });
 });
 
+// show stats with css animation
 function showStats(content) {
+    $('#stats-panel').removeClass('bouncing');
+    setTimeout(function(){
     $('#stats-result').html(content);
+        $('#stats-panel').addClass('bouncing');
+    }, 50);
 }

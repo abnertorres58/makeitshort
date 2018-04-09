@@ -1,3 +1,42 @@
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+
+@keyframes bounceIn{
+  0%{
+    opacity: 0;
+    transform: scale(0.3) translate3d(0,0,0);
+  }
+  50%{
+    opacity: 0.9;
+    transform: scale(1.1);
+  }
+  80%{
+    opacity: 1;
+    transform: scale(0.89);
+  }
+  100%{
+    opacity: 1;
+    transform: scale(1) translate3d(0,0,0);
+  }
+}
+
+.bouncing {
+  animation-duration: 3s;
+  transition-timing-function: ease-in;
+  animation-name: bounceIn;
+}
+
+#stats-result {
+  font-size: 5em;
+}
+
 .btn:focus, .main-btn:focus{
     outline: 0 !important;
 }

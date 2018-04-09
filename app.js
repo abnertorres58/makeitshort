@@ -69,6 +69,12 @@ app.get('/:encoded_id', function(req, res){
   // check if url already exists in database
   Url.findOne({_id: id}, function (err, doc){
     if (doc) {
+      Url.update({_id: doc._id}, {$inc: {hits: 1}} , function(err) {
+          if (err){
+              console.log(err);
+          }
+      });
+
       // todo check for http
       res.redirect(doc.original_url);
     } else {

@@ -38,7 +38,7 @@ app.post('/api/makeitshort', function(req, res){
     var originalUrl = req.body.url;
     var url = ''; // resulting short url
 
-  // check if url already exists in database
+  // check if long url already exists in database
   Url.findOne({original_url: originalUrl}, function (err, doc){
     if (doc){
       url = config.webhost + encoder.encode(doc._id);

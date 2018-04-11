@@ -8,7 +8,7 @@ var encoder = require('./encoder.js');
 
 // models
 var urlModule = require('./models/url');
-var stats = urlModule.stats;
+var sequences = urlModule.sequences;
 var Url = urlModule.Url;
 
 mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
@@ -25,9 +25,9 @@ app.get('/', function(req, res){
 
 // return general sequence - last generated id = total urls shortened
 app.post('/api/stats', function(req, res) {
-  stats.findOne({_id: 'url_stats'}, function (err, doc) {
+  sequences.findOne({_id: 'url_sequence'}, function (err, doc) {
     if (doc) {
-      res.send({ url_count: doc.url_count });
+      res.send({ url_count: doc.sequence_value });
     } else {
       res.send('N/A');
     }
@@ -41,9 +41,12 @@ app.post('/api/makeitshort', function(req, res){
   // check if long url already exists in database
   Url.findOne({original_url: originalUrl}, function (err, doc){
     if (doc){
-      url = config.webhost + encoder.encode(doc._id);
 
-      // return existent
+      // increment the amount of conversions / request to be shortened
+      Url.update({_id: doc._id}, {$set: {conversions: doc.conversions + 1}});
+
+      // shorten existent url and return it
+      url = config.webhost + encoder.encode(doc._id);
       res.send({'url': url, 'hits': doc.hits});
     } else {
       // create a new one

@@ -15,7 +15,9 @@ $('.main-btn').on('click', function(){
             if (data.hits > 0) {
                 showStats('Hitted ' + data.hits + ' time(s)!');
             }
-        }
+        },
+        timeout: 60 * 5 * 1000 // 5 minutes timeout
+
     });
 
 });

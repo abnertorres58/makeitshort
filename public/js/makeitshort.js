@@ -13,8 +13,9 @@ $('.main-btn').on('click', function(){
         $('#link').hide().fadeIn('slow');
             // show link stats
             if (data.hits > 0) {
-                showStats('Hitted ' + data.hits + ' time(s)!');
+                showStats('Hitted ' + data.hits + ' time(s)!' + ' and converted ' + data.conversions + ' times ');
             }
+
         },
         timeout: 60 * 5 * 1000 // 5 minutes timeout
 

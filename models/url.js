@@ -8,7 +8,7 @@ var SequencesSchema = Schema({
   }
 );
 
-var sequences = mongoose.model('sequences', SequencesSchema);
+var sequences = mongoose.model('sequences', SequencesSchema, 'sequences');
 
 // create a schema for our links
 var urlSchema = new Schema({
@@ -22,7 +22,7 @@ urlSchema.pre('save', function (next) {
   var doc = this;
 
   // increment counter in the sequence table and use it as the new Url._id
-  sequences.findByIdAndUpdate({_id: 'url_sequence'}, {$inc: {sequence_value: 1}}, function (error, counter) {
+  sequences.findByIdAndUpdate({_id: 'current_sequence'}, {$inc: {sequence_value: 1}}, function (error, counter) {
     if (error)
       return next(error);
     doc._id = counter.sequence_value;

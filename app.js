@@ -66,7 +66,7 @@ app.post('/api/makeitshort', function(req, res){
         url = config.webhost + encoder.encode(newUrl._id);
 
         // return the url to show it
-        res.send({'url': url, 'hits': 0, 'conversions': doc.conversions});
+        res.send({'url': url, 'hits': 0, 'conversions': newUrl.conversions});
       });
     }
 

@@ -1,7 +1,7 @@
 # INSTALLATION
 - Create a mongo databse in your host machine called short_urls using Robo 3T or mongo cli
 - use short_urls
-- db.sequence.insert({ _id: 'current_sequence', sequence_value: 1 })
+- db.sequences.insert({ _id: 'current_sequence', sequence_value: 1 })
 - change in Dockerfile the volume mapping to your host machine mongo data directory. Example:
 
 /Users/freudromero/mongo-data:/data/db

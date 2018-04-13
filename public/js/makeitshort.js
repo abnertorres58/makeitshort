@@ -1,3 +1,4 @@
+//Add an event listener for the button "Make it Short" where the user has to click
 $('.main-btn').on('click', function(){
 
     $.ajax({

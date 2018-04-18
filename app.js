@@ -11,7 +11,7 @@ var urlModule = require('./models/url');
 var sequences = urlModule.sequences;
 var Url = urlModule.Url;
 
-mongoose.connect('mongodb://' + config.db.host + '/' + config.db.name);
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://' + config.db.host + '/' + config.db.name);
 
 
 app.use(bodyParser.json());
@@ -99,7 +99,7 @@ app.get('/:encoded_id', function(req, res){
 // check that is not being used from a mocha test
 // because the mocha test starts its own app in another port
 if (!module.parent) {
-  var server = app.listen(3000, function () {
+  var server = app.listen(process.env.PORT || 3000, function () {
       console.log('Server listening on port 3000 - http://localhost:3000/');
   });
 }

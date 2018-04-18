@@ -11,6 +11,14 @@ var urlModule = require('./models/url');
 var sequences = urlModule.sequences;
 var Url = urlModule.Url;
 
+function serverUrl() {
+  if (process.env.NODE_ENV == 'production') {
+    return "http://" + req.host;
+  } else {
+    return config.webhost;
+  }
+}
+
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://' + config.db.host + '/' + config.db.name);
 
 
@@ -45,7 +53,7 @@ app.post('/api/makeitshort', function(req, res){
       // increment the amount of conversions / request to be shortened
       Url.update({_id: doc._id}, {$set: {conversions: doc.conversions + 1}}, function(err) {
         // shorten existent url and return it
-        url = config.webhost + encoder.encode(doc._id);
+        url = serverUrl() + encoder.encode(doc._id);
         res.send({'url': url, 'hits': doc.hits, 'conversions': doc.conversions + 1});
 
       });
@@ -63,7 +71,7 @@ app.post('/api/makeitshort', function(req, res){
         }
 
         // encode the url
-        url = config.webhost + encoder.encode(newUrl._id);
+        url = serverUrl() + encoder.encode(newUrl._id);
 
         // return the url to show it
         res.send({'url': url, 'hits': 0, 'conversions': newUrl.conversions});
@@ -91,7 +99,7 @@ app.get('/:encoded_id', function(req, res){
       // todo check for http
       res.redirect(doc.original_url);
     } else {
-      res.redirect(config.webhost);
+      res.redirect(serverUrl());
     }
   });
 });

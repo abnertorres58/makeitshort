@@ -8,3 +8,4 @@ config.db.host = 'localhost:27017'; // in case of running npm start and mongo lo
 config.db.name = 'short_urls';
 
 module.exports = config;
+

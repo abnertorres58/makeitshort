@@ -1,6 +1,6 @@
 //Add an event listener for the button "Make it Short" where the user has to click
 $('.main-btn').on('click', function(){
-
+    //ajax call to /api/makeitshort with url entered by user
     $.ajax({
         url: '/api/makeitshort',
         type: 'POST',

@@ -33,7 +33,7 @@ app.get('/', function(req, res){
 
 // return general sequence - last generated id = total urls shortened
 app.post('/api/stats', function(req, res) {
-  sequences.findOne({_id: 'url_sequence'}, function (err, doc) {
+  sequences.findOne({_id: 'current_sequence'}, function (err, doc) {
     if (doc) {
       res.send({ url_count: doc.sequence_value });
     } else {

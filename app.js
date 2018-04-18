@@ -53,7 +53,7 @@ app.post('/api/makeitshort', function(req, res){
       // increment the amount of conversions / request to be shortened
       Url.update({_id: doc._id}, {$set: {conversions: doc.conversions + 1}}, function(err) {
         // shorten existent url and return it
-        url = serverUrl(req) + encoder.encode(doc._id);
+        url = serverUrl(req) + "/" + encoder.encode(doc._id);
         res.send({'url': url, 'hits': doc.hits, 'conversions': doc.conversions + 1});
 
       });
@@ -71,7 +71,7 @@ app.post('/api/makeitshort', function(req, res){
         }
 
         // encode the url
-        url = serverUrl(req) + encoder.encode(newUrl._id);
+        url = serverUrl(req) + "/" + encoder.encode(newUrl._id);
 
         // return the url to show it
         res.send({'url': url, 'hits': 0, 'conversions': newUrl.conversions});
